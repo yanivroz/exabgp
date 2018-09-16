@@ -1,6 +1,5 @@
 FROM alpine:latest
 
-
 MAINTAINER Yaniv Rozenboim <yanivr@radware.com>
 
 RUN apk add --no-cache bash python py-pip \ 
