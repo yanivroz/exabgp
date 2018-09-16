@@ -12,6 +12,8 @@ RUN apk add --no-cache bash python py-pip \
 ADD exabgp.conf http_api.py /etc/exabgp/
 ADD entrypoint.sh /
 
+RUN chmod +x /entrypoint.sh
+
 ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 179
