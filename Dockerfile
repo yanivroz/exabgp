@@ -10,10 +10,9 @@ RUN apk add --no-cache bash python py-pip \
     && sed -i 's/bind = .*/bind = 0.0.0.0/' /etc/exabgp/exabgp.env
 
 ADD exabgp.conf http_api.py /etc/exabgp/
-ADD entrypoint.sh /bin/
+ADD entrypoint.sh /
 
-#ENTRYPOINT ["exabgp", "/etc/exabgp/exabgp.conf"]
-ENTRYPOINT ["entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 179
 EXPOSE 5001
