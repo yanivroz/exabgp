@@ -9,8 +9,8 @@ RUN apk add --no-cache bash python py-pip \
     && exabgp --fi > /etc/exabgp/exabgp.env \
     && sed -i 's/bind = .*/bind = 0.0.0.0/' /etc/exabgp/exabgp.env
 
-COPY exabgp.conf http_api.py /etc/exabgp/
-COPY entrypoint.sh /bin/
+ADD exabgp.conf http_api.py /etc/exabgp/
+ADD entrypoint.sh /bin/
 
 #ENTRYPOINT ["exabgp", "/etc/exabgp/exabgp.conf"]
 ENTRYPOINT ["entrypoint.sh"]
