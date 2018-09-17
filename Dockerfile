@@ -2,9 +2,9 @@ FROM alpine:latest
 
 MAINTAINER Yaniv Rozenboim <yanivr@radware.com>
 
-RUN apk add --no-cache bash python py-pip \ 
-    && pip install --upgrade pip \ 
-    && pip install exabgp \
+RUN apk add --no-cache bash python3\
+    && pip3 install --upgrade pip \
+    && pip3 install exabgp \
     && mkdir -p /etc/exabgp \
     && exabgp --fi > /etc/exabgp/exabgp.env \
     && sed -i 's/bind = .*/bind = 0.0.0.0/' /etc/exabgp/exabgp.env
