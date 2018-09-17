@@ -25,7 +25,10 @@ class ServerHandler(http.server.SimpleHTTPRequestHandler):
 
     def createResponse(self, command):
         """ Send command string back as confirmation """
-        self.send_response(200)
+        if command.startswith('Success: '):
+            self.send_response(200)
+        else:
+            self.send_response(400)
         self.send_header('Content-Type', 'application/text')
         self.end_headers()
         self.wfile.write(command.encode())
