@@ -49,7 +49,7 @@ class ServerHandler(http.server.SimpleHTTPRequestHandler):
             ip = ipaddress.ip_network(command[1:])  # IP in CIDR notation (e.g 1.1.1.1/32)
             if action in ('+', '-'):
                 message = '{} route {} next-hop {}\n'.format(
-                    'announce' if action == '+' else 'withdraw', ip, os.environ['BGP_LOCAL'])
+                    'announce' if action == '+' else 'withdraw', ip, os.environ['MY_NODE_IP'])
                 stdout.write(message)
                 stdout.flush()
                 self.createResponse('Success: %s' % message)

@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: radware
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: radware-bgp-svc
+  namespace: radware
+  labels:
+    run: radware-bgp
+spec:
+  type: NodePort
+  ports:
+  - port: 5001
+    protocol: TCP
+    name: exabgp-api
+  selector:
+    app: radware-bgp
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: radware-bgp-ds
+  namespace: radware
+  labels:
+    app: radware-bgp
+spec:
+  selector:
+    matchLabels:
+      app: radware-bgp
+  template:
+    metadata:
+      labels:
+        app: radware-bgp
+    spec:
+      containers:
+      - name: radware-bgp
+        image: yarozen/exabgp
+        env:
+        - name: MY_POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: MY_NODE_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+---
